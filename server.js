@@ -12,7 +12,15 @@ connectDB();
 connectCloudinary();
 
 // middlewares
-app.use(cors());
+// Allow your S3 frontend to access the backend
+app.use(
+  cors({
+    origin: ["http://clokk-app.s3-website.eu-north-1.amazonaws.com"], // replace with your S3 URL
+    credentials: true,
+  }),
+);
+// or for testing, allow all (not recommended in production):
+app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 
 // api endpoints
@@ -30,6 +38,6 @@ app.get("/api/test-auth", authUser, (req, res) => {
   });
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server running on port : ${process.env.PORT}`);
+app.listen(process.env.PORT || 5000, "0.0.0.0", () => {
+  console.log(`Server running on port ${process.env.PORT}`);
 });
