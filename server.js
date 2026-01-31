@@ -11,23 +11,15 @@ const app = express();
 connectDB();
 connectCloudinary();
 
-// allowed origins: local dev + live frontend
-const allowedOrigins = [
-  "http://localhost:5173", // local dev
-  "http://my-vite-clokk-frontend.s3-website.ap-south-1.amazonaws.com", // replace this with your S3/CloudFront URL
-];
-
 app.use(
   cors({
-    origin: allowedOrigins,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: [
+      "http://localhost:5173",
+      "https://my-vite-clokk-frontend.s3-website.ap-south-1.amazonaws.com",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   }),
 );
-
-// handle OPTIONS preflight globally
-app.options("*", cors());
 
 // parse JSON
 app.use(express.json());
@@ -48,6 +40,8 @@ app.get("/api/test-auth", authUser, (req, res) => {
 });
 
 // listen
-app.listen(process.env.PORT || 5000, "0.0.0.0", () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on ${PORT}`);
 });
