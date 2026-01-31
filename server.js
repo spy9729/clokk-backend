@@ -13,10 +13,7 @@ connectCloudinary();
 // CORS — whitelist frontend HTTPS URL
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://your-frontend-cloudfront-or-vercel-url",
-    ],
+    origin: ["http://localhost:5173", "https://clokk-frontend.vercel.app/"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
