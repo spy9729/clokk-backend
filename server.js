@@ -14,9 +14,11 @@ connectCloudinary();
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
-      "https://my-vite-clokk-frontend.s3-website.ap-south-1.amazonaws.com",
+      "http://localhost:5173", // local dev
+      "https://my-vite-clokk-frontend.s3-website.ap-south-1.amazonaws.com", // HTTPS version
+      // if using CloudFront/HTTPS add here
     ],
+    credentials: true, // required if using cookies
     methods: ["GET", "POST", "PUT", "DELETE"],
   }),
 );
